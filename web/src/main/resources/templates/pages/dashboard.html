@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-check text-danger icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Avaliação</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" th:text="${#numbers.formatInteger(quantidadeConsultasAguardandoAprovacao,3,'POINT')}" />
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                       Total de consultas aguardando avaliação
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-magnify text-warning icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Consultas</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0"  th:text="${#numbers.formatInteger(quantidadeConsultas,3,'POINT')}" />
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        Total de consultas já cadastradas
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-check-all text-success icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Buscas</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" th:text="${#numbers.formatInteger(quantidadeBuscasAtivas,3,'POINT')}" />
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        Buscas ativas no centralizador
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+            <div class="card card-statistics">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <div class="float-left">
+                            <i class="mdi mdi-play text-info icon-lg"></i>
+                        </div>
+                        <div class="float-right">
+                            <p class="mb-0 text-right">Buscas em execução</p>
+                            <div class="fluid-container">
+                                <h3 class="font-weight-medium text-right mb-0" th:text="${#numbers.formatInteger(quantidadeBuscasExecucao,3,'POINT')}" />
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-3 mb-0">
+                        Buscas em execução no momento
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-5">Divisão de buscas por rede</h2>
+                    <span th:each="quantidadeRede: ${quantidadesPorRede}">
+                    <div class="wrapper mt-4">
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2" th:text="${quantidadeRede.servico}" />
+                            <p class="mb-2 text-primary" th:text="${#numbers.formatInteger(quantidadeRede.count,3,'POINT')}" />
+                        </div>
+                        <div class="progress">
+
+                            <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" th:style="'width: ' + ${quantidadeRede.porcentagem} + '%'" th:aria-valuenow="${quantidadeRede.count}"
+                                 aria-valuemin="0" th:aria-valuemax="${quantidadeBuscasAtivas}"></div>
+                        </div>
+                    </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Since mínimo por rede</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>
+                                   Rede
+                                </th>
+                                <th>
+                                    Since
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="sinceRede: ${sincesRede}">
+
+                                    <td  class="col-md-2"th:text="${sinceRede.servico}" />
+                                    <td  class="col-md-3"th:text="${sinceRede.data}" />
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Assinatura</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Dados da Assinatura - Plano</h4>
+                <form class="form-sample" th:object="${assinatura}" method="post">
+                    <input type="hidden" th:field="${assinatura.id}"/>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">Nome:</label>
+                                <div class="col-sm-1">
+                                    <input type="text" th:field="${assinatura.nome}"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">E-mail:</label>
+                                <div class="col-sm-1">
+                                    <input type="text" th:field="${assinatura.email}"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <button type="submit" th:formaction="@{/pages/assinatura/criar}" class="btn btn-primary mr-1">Assinar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+</body>
+
+</html>

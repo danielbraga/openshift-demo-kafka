@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin</title>
+    <link rel="stylesheet" th:href="@{/vendors/iconfonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}">
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.addons.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="container-scroller">
+
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+            <a class="navbar-brand brand-logo" href="index.html">
+            </a>
+            <a class="navbar-brand brand-logo-mini" href="index.html">
+                <img th:src="@{/images/logo-mini.svg}" alt="logo" />
+            </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+            <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/pages/dashboard}">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">Tela inicial</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/pages/assinatura}">
+                        <i class="menu-icon mdi mdi-format-list-checks"></i>
+                        <span class="menu-title">Assinatura</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- partial -->
+        <div class="main-panel">
+            <th:block th:if="${message}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" th:append>
+                <span th:if="${message}" th:text="${message}" ></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            </th:block>
+
+            <div class="content-wrapper" layout:fragment="content"></div>
+            <!-- content-wrapper ends -->
+
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+              <i class="mdi mdi-heart text-danger"></i>
+            </span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- plugins:js -->
+<script th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<script th:src="@{/vendors/js/vendor.bundle.addons.js}"></script>
+<script th:src="@{/js/off-canvas.js}"></script>
+<script th:src="@{/js/misc.js}"></script>
+<script th:src="@{/js/dashboard.js}"></script>
+<script type="text/javascript">
+    function associarBusca(busca,consulta){
+        $.ajax({
+            type: 'GET',
+            url: '/busca/associar/'+busca+'/'+consulta,
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+                $.toast({
+                    heading: 'mensagem',
+                    text: data,
+                    position: 'top-right',
+                    stack: false
+                })
+            }
+        );
+    }
+
+    function search(termo){
+        $.ajax({
+            type: 'GET',
+            url: '/pages/busca/search?termo='+termo,
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+
+            }
+        );
+    }
+    function salvarBusca(id,query,extras){
+        $.ajax({
+            type: 'POST',
+            url: '/busca/atualizar',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ id: id, query: query, extras: extras }),
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+            $.toast({
+                heading: 'mensagem',
+                text: data,
+                position: 'top-right',
+                stack: false
+                })
+            }
+        );
+    }
+    function inativarBusca(id,query){
+        $.ajax({
+            type: 'POST',
+            url: '/busca/inativar',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ id: id, query: query }),
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+                $.toast({
+                    heading: 'mensagem',
+                    text: data,
+                    position: 'top-right',
+                    stack: false
+                })
+            }
+        );
+    }
+    function ativarBusca(id,query){
+        $.ajax({
+            type: 'POST',
+            url: '/busca/ativar',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ id: id, query: query }),
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+                $.toast({
+                    heading: 'mensagem',
+                    text: data,
+                    position: 'top-right',
+                    stack: false
+                })
+            }
+        );
+    }
+
+    function juntarBuscas(){
+        var searchIDs = $("#buscas input[type=checkbox]:checked").map(function(){
+            return $(this).val();
+        }).get(); // <----
+        console.log(JSON.stringify(searchIDs));
+
+        $.ajax({
+            type: 'GET',
+            url: '/busca/merge/'+JSON.stringify(searchIDs),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'text'
+        }).done(function(data) { // get from controller
+                $.toast({
+                    heading: 'mensagem',
+                    text: data,
+                    position: 'top-right',
+                    stack: false
+                })
+            }
+        );
+    }
+</script>
+</body>
+</html>

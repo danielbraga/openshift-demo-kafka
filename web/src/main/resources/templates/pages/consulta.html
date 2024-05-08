@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Consulta</title>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Dados da consulta</h4>
+                <form class="form-sample" th:object="${consulta}" method="post">
+                    <input type="hidden"  th:field="${consulta.id}"/>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-sm-1">
+                                    <img th:src="@{${'https://imagens.vtracker.com.br/servicos/' + consulta.rede +'.png'}}" width="32px" />
+                                </div>
+                                <label class="col-sm-1 col-form-label">Query:</label>
+                                <div class="col-sm-6">
+                                    <span th:text="${consulta.url != null} ? ${consulta.url} : ${consulta.expressao}"/>
+                                </div>
+                                <button type="submit" th:formaction="@{/pages/consulta/criar}" class="btn btn-primary mr-1">Criar busca a partir da consulta</button>
+                                <button type="submit" th:formaction="@{/pages/consulta/aprovar}" class="btn btn-info mr-1">Aprovar</button>
+                                <button type="submit" th:formaction="@{/pages/consulta/rejeitar}" class="btn btn-danger">Rejeitar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <th:block th:if="${buscas.isEmpty()}">
+                <h4 class="card-title">Não encontramos buscas relacionadas com a query da consulta</h4>
+            </th:block>
+
+            <th:block th:if="${ not buscas.isEmpty()}">
+            <div class="card-body" >
+                <h4 class="card-title">Buscas possivelmente relacionadas com a consulta</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm text-center">
+                        <thead>
+                        <tr>
+                            <th>
+                                id
+                            </th>
+                            <th>
+                                # consultas
+                            </th>
+                            <th>
+                                # resultados
+                            </th>
+                            <th>
+                                Rede/Serviço
+                            </th>
+                            <th>
+                                Query
+                            </th>
+                            <th>
+                                Extras
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="busca: ${buscas}">
+                            <!--                                    id-->
+                            <td  th:id="'busca_' + ${busca.id}" class="col-md-1" th:text="${busca.id}" />
+                            </td>
+                            <!--                                    uso-->
+                            <td  class="col-md-1" th:text="${busca.consultas.size}" />
+                            </td>
+                            <!--                                    resultados-->
+                            <td  class="col-md-1" th:text="${busca.resultados}" />
+                            </td>
+                            <!--                                    servico-->
+                            <td class="col-md-1">
+                                <img th:src="@{${'https://imagens.vtracker.com.br/servicos/' + busca.rede +'.png'}}" />
+                            </td>
+                                <!--                                query-->
+                            <td  class="col-md-7">
+                                <input th:id="'expressao_' + ${busca.id}" type="text" class="form-control" th:value="${busca.url != null} ? ${busca.url} : ${busca.expressao}"/>
+                            </td>
+                            <!--                                extras-->
+                            <td  class="col-md-2">
+                                <input th:id="'extras_' + ${busca.id}" type="text" class="form-control" th:value="${busca.extras}"/>
+                            </td>
+                            <!--                                    acoes-->
+                            <td class="col-md-1">
+                                <i class="menu-icon mdi mdi-checkbox-marked-outline" th:onclick="associarBusca([[${busca.id}]],[[${consulta.id}]])" style="cursor:pointer" ></i>
+                                <i class="menu-icon mdi mdi-content-save mr-2" th:onclick="salvarBusca([[${busca.id}]],$('#expressao_[[${busca.id}]]' ).val(),$('#extras_[[${busca.id}]]' ).val())" style="cursor:pointer" ></i>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </th:block>
+        </div>
+    </div>
+
+
+</section>
+
+</body>
+
+</html>
