@@ -12,7 +12,7 @@ public abstract class KafkaGenericProducer<T> {
 
     private final CountDownLatch shutdownLatch;
 
-    protected final String KAFKA_SERVER = System.getProperty("kafka.address", getServer());
+    protected final String KAFKA_SERVER = System.getProperty("OP_DEMO_KAFKA_ADDRESS", getServer());
 
     public KafkaGenericProducer() {
         this.shutdownLatch = new CountDownLatch(1);
