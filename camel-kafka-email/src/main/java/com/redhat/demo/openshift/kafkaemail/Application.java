@@ -27,7 +27,7 @@ public class Application {
     }
 
     private static String getSystemFrom() {
-        return System.getProperty("broker.from", "tcp://192.168.0.13:29092");
+        return System.getProperty("broker.from", "tcp://my-cluster-kafka-brokers.default.svc.cluster.local:9092");
     }
 
     private static String getSystemTo() {

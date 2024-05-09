@@ -1,14 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <parent>
-        <artifactId>op-demo-kafka</artifactId>
-        <groupId>com.redhat.demo.openshift</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>camel-kafka-database</artifactId>
+    <groupId>com.redhat.demo.openshift</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <camel.version>3.20.6</camel.version>
+        <spring.boot.version>2.7.3</spring.boot.version>
+        <lombok.version>1.18.26</lombok.version>
+        <postgresql.driver.version>42.5.4</postgresql.driver.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
