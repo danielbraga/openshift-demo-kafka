@@ -10,8 +10,7 @@ public class EmailRouteBuilder extends RouteBuilder {
         getContext().getShutdownStrategy().setTimeout(10);
 
         from("kafka:" + getSystemTopicFrom() + "?groupId=" + getGroupId() + "&autoOffsetReset=earliest")
-                .process(new SimpleProcessor()).to("kafka:" + getSystemTopicTo() + "?groupId=" + getGroupId())
-                .log("Kafka Migracao complete.");
+                .process(new SimpleProcessor()).to("kafka:" + getSystemTopicTo() + "?groupId=" + getGroupId());
     }
 
     private String getSystemTopicFrom() {

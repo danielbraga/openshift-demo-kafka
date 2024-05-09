@@ -14,7 +14,7 @@ public class SimpleProcessor implements Processor {
         String json = (String) exchange.getIn().getBody();
         System.out.println("JSON: " + json);
         JsonElement jsonElement = gson.toJsonTree(json);
-        jsonElement.getAsJsonObject().addProperty("processor", "email");
-        exchange.getOut().setBody(gson.toJson(jsonElement));
+        // jsonElement.getAsJsonObject().addProperty("processor", "email");
+        exchange.getOut().setBody(json);
     }
 }
