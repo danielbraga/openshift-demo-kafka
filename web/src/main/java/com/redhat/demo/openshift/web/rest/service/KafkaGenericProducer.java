@@ -23,7 +23,7 @@ public abstract class KafkaGenericProducer<T> {
     protected abstract String getTopico();
 
     protected String getServer() {
-        return "my-cluster-kafka-bootstrap.default.svc.cluster.local:9002";
+        return "my-cluster-kafka-brokers.default.svc.cluster.local:9092";
     }
 
     public void send(T value){
